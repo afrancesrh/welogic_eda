@@ -3,13 +3,13 @@ DOCUMENTATION = r'''
 module: welogic admin
 short_description: event-driven-ansible source plugin for Weblogic Cluster
 description:
-    - Only retrieves records created after the script began executing
-    - This script can be tested outside of ansible-rulebook by specifying environment variables for SN_HOST, SN_USERNAME, SN_PASSWORD, SN_TABLE
+    - Only output changed state
+    - This script can be tested outside of ansible-rulebook by specifying environment variables for WL_HOST, WL_USERNAME, WL_PASSWORD
 author: "Colin McNaughton (@cloin)"
 options:
     instance:
         description:
-            - URL of ServiceNow instance
+            - URL of WebLogic Admin Server
         required: true
     username:
         description:
@@ -21,30 +21,28 @@ options:
         required: true
     query:
         description:
-            - Records to query
+            - further args to be passed
         required: false
-        default: sys_created_onONToday@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()
+
     interval:
         description:
             - Seconds to wait before performing another query
         required: false
         default: 5
-notes:
-    - This is currently only capable of basic authentication and is used so far only for demo purposes
 '''
 
 EXAMPLES = r'''
 - name: Watch for new events
     hosts: localhost
     sources:
-    - cloin.eda.snow_records:
-        instance: https://dev-012345.service-now.com
+    - mtn_nigeria.weblogic_eda:
+        instance: https://weblogic:7001/
         username: ansible
         password: ansible
         interval: 1
     rules:
     - name: New record created
-        condition: event.sys_id is defined
+        condition: event.wl_event is defined
         action:
         debug:
 '''
