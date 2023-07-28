@@ -5,7 +5,7 @@ short_description: event-driven-ansible source plugin for Weblogic Cluster
 description:
     - Only output changed state
     - This script can be tested outside of ansible-rulebook by specifying environment variables for WL_HOST, WL_USERNAME, WL_PASSWORD
-author: "Colin McNaughton (@cloin)"
+author: "Andrea Franceschini"
 options:
     instance:
         description:
@@ -35,7 +35,7 @@ EXAMPLES = r'''
 - name: Watch for new events
     hosts: localhost
     sources:
-    - mtn_nigeria.weblogic_eda:
+    - afrancesrh.weblogic_eda:
         instance: https://weblogic:7001/
         username: ansible
         password: ansible
